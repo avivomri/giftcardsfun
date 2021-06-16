@@ -6,18 +6,18 @@ import androidx.room.PrimaryKey
 import com.example.giftcardsfun.model.GiftCard
 
 @Entity(tableName = "GiftCard")
-data class GiftCardEntity constructor(@ColumnInfo(name = "store_name") private val storeNames: List<String>) :
+data class GiftCardEntity constructor(@ColumnInfo(name = "store_name") private val storeName: String) :
     GiftCard {
 
     @ColumnInfo(name = "name")
-    private var name: String? = null
+    private lateinit var name: String
 
-    override fun getName(): String? {
+    override fun getName(): String {
         return name
     }
 
-    override fun getStoreNames(): List<String>? {
-        return storeNames
+    override fun getStoreName(): String {
+        return storeName
     }
 
 

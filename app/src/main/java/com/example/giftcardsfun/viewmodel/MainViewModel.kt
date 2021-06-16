@@ -6,6 +6,9 @@ import com.example.giftcardsfun.repository.GiftCardRepo
 import com.example.giftcardsfun.view.MainFragment
 
 class MainViewModel constructor(app: Application) : AndroidViewModel(app) {
+    init {
+        GiftCardRepo.initializeDB(app)
+    }
 
     private /*lateinit*/ var stateLiveData: MutableLiveData<MainFragment.State> = MutableLiveData()
     fun getStateLiveData(): LiveData<MainFragment.State> = stateLiveData

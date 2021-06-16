@@ -1,6 +1,6 @@
 package com.example.giftcardsfun.model
 
 interface GiftCard {
-    fun getName() : String?
-    fun getStoreNames() : List<String>?
+    fun getName() : String
+    fun getStoreName() : String
 }
