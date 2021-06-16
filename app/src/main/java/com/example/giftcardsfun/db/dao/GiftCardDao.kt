@@ -1,19 +1,18 @@
-package com.example.giftcardsfun.db
+package com.example.giftcardsfun.db.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.giftcardsfun.model.GiftCardModel
+import com.example.giftcardsfun.db.entity.GiftCardEntity
 
 @Dao
-interface DAOAccess {
+interface GiftCardDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun InsertData(giftCardModel: GiftCardModel)
+    fun insertAll(giftCards: List<GiftCardEntity?>?)
 
     @Query("SELECT * FROM GiftCard WHERE store_name =:storeName")
-    fun getGiftCard(storeName: String) : LiveData<GiftCardModel>
-
+    fun getGiftCard(storeName: String) : LiveData<GiftCardEntity>
 }
