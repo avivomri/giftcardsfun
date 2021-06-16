@@ -1,6 +1,7 @@
 package com.example.giftcardsfun.viewmodel
 
 import android.content.Context
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.giftcardsfun.repository.GiftCardRepo
@@ -15,7 +16,8 @@ class MainViewModel constructor(val context: Context?) : ViewModel() {
 
     }
 
-    private lateinit var stateLiveData: MutableLiveData<MainFragment.State>
+    private /*lateinit*/ var stateLiveData: MutableLiveData<MainFragment.State> = MutableLiveData()
+    fun getStateLiveData(): LiveData<MainFragment.State> = stateLiveData
 
     fun refresh() = try {
         GiftCardRepo.refresh()

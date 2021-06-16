@@ -4,9 +4,7 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import com.example.giftcardsfun.db.GiftCardDatabase
 import com.example.giftcardsfun.db.entity.GiftCardEntity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class GiftCardRepo {
 
@@ -22,7 +20,7 @@ class GiftCardRepo {
         fun insertData(context: Context, giftCardName: String, firstStoreName: String) {
             giftCardDatabase = initializeDB(context)
 
-            CoroutineScope(IO).launch {
+            GlobalScope.launch(Dispatchers.IO) {
                 val giftCard = GiftCardEntity(arrayListOf("zara, h&m, fox"))
                 giftCardDatabase!!.giftCardDao().insertAll(arrayListOf(giftCard))
             }

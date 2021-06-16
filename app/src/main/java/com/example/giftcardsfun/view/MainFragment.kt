@@ -34,6 +34,9 @@ class MainFragment : Fragment() {
             inflater,
             R.layout.main_fragment, container, false
         )
+
+        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+
         val view: View = binding.getRoot()
 
         return view
@@ -42,15 +45,10 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.getStateLiveData().(this, )
+
         binding.buttonRefresh.setOnClickListener{
             viewModel.refresh()
         }
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-        // TODO: Use the ViewModel
-
     }
 }
