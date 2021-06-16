@@ -1,20 +1,11 @@
 package com.example.giftcardsfun.viewmodel
 
-import android.content.Context
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.*
 import com.example.giftcardsfun.repository.GiftCardRepo
 import com.example.giftcardsfun.view.MainFragment
 
-class MainViewModel constructor(val context: Context?) : ViewModel() {
-    init {
-        //
-    }
-
-    companion object {
-
-    }
+class MainViewModel constructor(app: Application) : AndroidViewModel(app) {
 
     private /*lateinit*/ var stateLiveData: MutableLiveData<MainFragment.State> = MutableLiveData()
     fun getStateLiveData(): LiveData<MainFragment.State> = stateLiveData
