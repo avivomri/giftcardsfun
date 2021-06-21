@@ -14,5 +14,5 @@ interface GiftCardDao {
     fun getGiftCard(storeName: String): LiveData<GiftCardEntity>
 
     @Query("SELECT * FROM GiftCard")
-    fun getAll(): LiveData<GiftCardEntity>
+    fun getAll(): LiveData<List<GiftCardEntity>>
 }

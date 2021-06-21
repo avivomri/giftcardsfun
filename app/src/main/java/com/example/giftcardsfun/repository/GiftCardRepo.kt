@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import com.example.giftcardsfun.db.GiftCardDatabase
 import com.example.giftcardsfun.db.dao.GiftCardDao
 import com.example.giftcardsfun.db.entity.GiftCardEntity
+import com.example.giftcardsfun.network.GiftCardServer
+import com.example.giftcardsfun.network.RestGiftCardService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -13,7 +15,8 @@ import kotlinx.coroutines.launch
 object GiftCardRepo {
     private lateinit var db: GiftCardDatabase
     private lateinit var giftCardDao: GiftCardDao
-    private lateinit var allGiftCards: LiveData<GiftCardEntity>
+    private lateinit var allGiftCards: LiveData<List<GiftCardEntity>>
+    private lateinit var restService: RestGiftCardService
 
     private lateinit var giftCardModel: MutableLiveData<GiftCardEntity>
     fun getGiftCardModel(): MutableLiveData<GiftCardEntity> = giftCardModel
@@ -22,9 +25,24 @@ object GiftCardRepo {
         db = GiftCardDatabase.getDataseClient(context)
         giftCardDao = db.giftCardDao()
         allGiftCards = giftCardDao.getAll()
+
+        if (allGiftCards.value?.size ?: 0 == 0) {
+            fetchFromServer()
+        }
     }
 
-    fun getAllGiftCard(): LiveData<GiftCardEntity> {
+    private fun fetchFromServer() {
+        GlobalScope.launch(Dispatchers.IO) {
+            val giftCardServer: GiftCardServer = restService.getStores()
+            mergeToDb(giftCardServer)
+        }
+    }
+
+    private fun mergeToDb(giftCardServer: GiftCardServer) {
+        //todo finish merge method
+    }
+
+    fun getAllGiftCard(): LiveData<List<GiftCardEntity>> {
         return allGiftCards
     }
 
@@ -43,7 +61,6 @@ object GiftCardRepo {
 
     @Throws(Exception::class)
     fun refresh() {
-        val giftCardModel = network.getGiftCard()
-        updateDatabase()
+        fetchFromServer()
     }
 }
