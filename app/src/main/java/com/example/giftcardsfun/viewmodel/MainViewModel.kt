@@ -6,11 +6,19 @@ import com.example.giftcardsfun.repository.GiftCardRepo
 import com.example.giftcardsfun.view.MainFragment
 
 class MainViewModel constructor(app: Application) : AndroidViewModel(app) {
+    private val mediator = MediatorLiveData<MainFragment.State>()
+    private val repoLiveData: LiveData<MainFragment.State> =
+        Transformations.map(GiftCardRepo.getGiftCardModel()) {
+            MainFragment.State.success
+        }
+    private val stateLiveData = MutableLiveData<MainFragment.State>()
+
     init {
         GiftCardRepo.initializeDB(app)
+        mediator.addSource(repoLiveData) { stateLiveData.value = it }
     }
 
-    private /*lateinit*/ var stateLiveData: MutableLiveData<MainFragment.State> = MutableLiveData()
+
     fun getStateLiveData(): LiveData<MainFragment.State> = stateLiveData
 
     fun refresh() = try {

@@ -6,10 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
-import com.example.giftcardsfun.viewmodel.MainViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.RecyclerView
 import com.example.giftcardsfun.R
 import com.example.giftcardsfun.databinding.MainFragmentBinding
+import com.example.giftcardsfun.viewmodel.MainViewModel
 
 
 class MainFragment : Fragment() {
@@ -35,9 +36,11 @@ class MainFragment : Fragment() {
             R.layout.main_fragment, container, false
         )
 
-        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         val view: View = binding.getRoot()
+
+        binding.recyclerViewGiftCards.adapter =
 
         return view
     }
@@ -45,9 +48,9 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getStateLiveData().(this, )
+        viewModel.getStateLiveData().observe(this, )
 
-        binding.buttonRefresh.setOnClickListener{
+        binding.buttonRefresh.setOnClickListener {
             viewModel.refresh()
         }
     }

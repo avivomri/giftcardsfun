@@ -11,13 +11,12 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 object GiftCardRepo {
-    var giftCardDatabase: GiftCardDatabase? = null
     private lateinit var db: GiftCardDatabase
     private lateinit var giftCardDao: GiftCardDao
     private lateinit var allGiftCards: LiveData<GiftCardEntity>
 
     private lateinit var giftCardModel: MutableLiveData<GiftCardEntity>
-    fun getGiftCardModel(): LiveData<GiftCardEntity> = giftCardModel
+    fun getGiftCardModel(): MutableLiveData<GiftCardEntity> = giftCardModel
 
     fun initializeDB(context: Context) {
         db = GiftCardDatabase.getDataseClient(context)
@@ -25,15 +24,19 @@ object GiftCardRepo {
         allGiftCards = giftCardDao.getAll()
     }
 
+    fun getAllGiftCard(): LiveData<GiftCardEntity> {
+        return allGiftCards
+    }
+
     fun insertData(context: Context, giftCardName: String, firstStoreName: String) {
         GlobalScope.launch(Dispatchers.IO) {
-            giftCardDatabase!!.giftCardDao().insertAll(
+            db.giftCardDao().insertAll(
                 giftCards = arrayListOf("zara", "fox").map { store -> GiftCardEntity(store) })
         }
     }
 
     fun getGiftCardDetails(context: Context, giftCardName: String): LiveData<GiftCardEntity>? {
-        giftCardModel = giftCardDatabase!!.giftCardDao().getGiftCard("zara")
+        giftCardModel = db.giftCardDao().getGiftCard("zara")
 
         return giftCardModel
     }
