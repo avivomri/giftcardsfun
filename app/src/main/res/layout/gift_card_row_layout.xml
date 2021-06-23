@@ -1,16 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <data>
+        <variable
+            name="model"
+            type="com.example.giftcardsfun.db.entity.GiftCardEntity" />
+    </data>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        >
 
         <TextView
             android:id="@+id/textView_giftCard_store_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
+            android:textSize="40sp"
+            android:text="@{model.storeName}"
             tools:text="zara" />
 
-    </FrameLayout>
+        <TextView
+            android:id="@+id/textView_giftCard_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:textSize="40sp"
+            android:text="MAX"
+            />
+
+    </LinearLayout>
 </layout>

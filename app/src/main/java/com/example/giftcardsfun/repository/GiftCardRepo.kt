@@ -18,8 +18,7 @@ object GiftCardRepo {
     private lateinit var allGiftCards: LiveData<List<GiftCardEntity>>
     private lateinit var restService: RestGiftCardService
 
-    private lateinit var giftCardModel: MutableLiveData<GiftCardEntity>
-    fun getGiftCardModel(): MutableLiveData<GiftCardEntity> = giftCardModel
+    fun getGiftCardModels(): LiveData<List<GiftCardEntity>> = allGiftCards
 
     fun initializeDB(context: Context) {
         db = GiftCardDatabase.getDataseClient(context)
@@ -53,11 +52,11 @@ object GiftCardRepo {
         }
     }
 
-    fun getGiftCardDetails(context: Context, giftCardName: String): LiveData<GiftCardEntity>? {
-        giftCardModel = db.giftCardDao().getGiftCard("zara")
-
-        return giftCardModel
-    }
+//    fun getGiftCardDetails(context: Context, giftCardName: String): LiveData<GiftCardEntity>? {
+//        giftCardModel = db.giftCardDao().getGiftCard("zara")
+//
+//        return giftCardModel
+//    }
 
     @Throws(Exception::class)
     fun refresh() {

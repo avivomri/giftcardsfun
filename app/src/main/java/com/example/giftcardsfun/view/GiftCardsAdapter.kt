@@ -3,46 +3,34 @@ package com.example.giftcardsfun.view
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.example.giftcardsfun.R
 import com.example.giftcardsfun.databinding.GiftCardRowLayoutBinding
 import com.example.giftcardsfun.db.entity.GiftCardEntity
 import kotlinx.coroutines.Dispatchers
 
-class GiftCardsAdapter(giftCards: MutableList<GiftCardEntity>,
-                       private val lifeCycleOwner: LifecycleOwner, viewLifecycleOwner: LifecycleOwner,
-                       observer: Observer<MovieExtendedDetailsResultJson>):
-    RecyclerView.Adapter<GiftCardsAdapter.GiftCardRowHolder>() {
-    private val giftCards: MutableList<GiftCardEntity>
-    private val pickedGiftCardLiveData: MutableLiveData<GiftCardEntity>
-
-    init {
-        this.giftCards = ArrayList(giftCards)
-        this.pickedGiftCardLiveData = MutableLiveData()
-        this.pickedGiftCardLiveData.observe(viewLifecycleOwner, observer)
-    }
+class GiftCardsAdapter(giftCards: List<GiftCardEntity>): RecyclerView.Adapter<GiftCardsAdapter.GiftCardRowHolder>() {
+    private val giftCards: MutableList<GiftCardEntity> = ArrayList(giftCards)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GiftCardRowHolder {
         val binding: GiftCardRowLayoutBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context),
             R.layout.gift_card_row_layout, parent, false)
-        return GiftCardRowHolder(binding, lifeCycleOwner)
+        return GiftCardRowHolder(binding)
     }
 
     override fun onBindViewHolder(holder: GiftCardRowHolder, position: Int) {
-        val movie = giftCards[position]
-        holder.binding(movie, pickedGiftCardLiveData, lifeCycleOwner.lifecycleScope)
+        val giftCard = giftCards[position]
+        holder.binding(giftCard)
     }
 
     override fun getItemCount(): Int {
         return giftCards.size
     }
 
-    fun setGiftCards(movies: MutableList<GiftCardEntity>) {
+    fun setGiftCards(giftCards: List<GiftCardEntity>) {
         this.giftCards.clear()
-        this.giftCards.addAll(movies)
+        this.giftCards.addAll(giftCards)
         notifyDataSetChanged()
     }
 
@@ -51,21 +39,9 @@ class GiftCardsAdapter(giftCards: MutableList<GiftCardEntity>,
     }
 
     //View Holder
-    inner class GiftCardRowHolder(val binding: GiftCardRowLayoutBinding, lifeCycleOwner: LifecycleOwner) :
-        RecyclerView.ViewHolder(binding.root) {
-        init {
-            binding.lifecycleOwner = lifeCycleOwner
-        }
-
-        fun binding(giftCard: MovieRow, moviePickedLiveData: MutableLiveData<MovieExtendedDetailsResultJson>,
-                    lifecycleScope: LifecycleCoroutineScope) {
+    inner class GiftCardRowHolder(private val binding: GiftCardRowLayoutBinding): RecyclerView.ViewHolder(binding.root) {
+        fun binding(giftCard: GiftCardEntity) {
             binding.model = giftCard
-            binding.root.setOnClickListener {
-                lifecycleScope.launch(Dispatchers.Main) {
-                    val movieDetailsResult = MovieRepo.getMovieDetails(giftCard.serverMovieId)!!
-                    moviePickedLiveData.value = movieDetailsResult
-                }
-            }
         }
-    })
+    }
 }
