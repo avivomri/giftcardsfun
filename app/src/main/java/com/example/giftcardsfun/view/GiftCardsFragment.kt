@@ -30,11 +30,9 @@ class GiftCardsFragment : Fragment() {
 
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
-        val view: View = binding.root
+        adapter = GiftCardsAdapter(viewModel.getGiftCardModels())
 
-        adapter = GiftCardsAdapter(viewModel.getGiftCardModels().value!!)
-
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
