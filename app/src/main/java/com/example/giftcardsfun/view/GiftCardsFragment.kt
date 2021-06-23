@@ -7,16 +7,15 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.RecyclerView
 import com.example.giftcardsfun.R
 import com.example.giftcardsfun.databinding.MainFragmentBinding
 import com.example.giftcardsfun.viewmodel.MainViewModel
 
 
-class MainFragment : Fragment() {
+class GiftCardsFragment : Fragment() {
 
     companion object {
-        fun newInstance() = MainFragment()
+        fun newInstance() = GiftCardsFragment()
     }
 
     private lateinit var viewModel: MainViewModel
