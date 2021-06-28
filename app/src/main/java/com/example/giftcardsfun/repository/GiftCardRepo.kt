@@ -39,6 +39,8 @@ object GiftCardRepo {
 
     private fun mergeToDb(giftCardServer: GiftCardServer) {
         //todo finish merge method
+        giftCardDao.deleteAll()
+        giftCardDao.insertAll(giftCardServer.stores)
     }
 
     fun getAllGiftCard(): LiveData<List<GiftCardEntity>> {
