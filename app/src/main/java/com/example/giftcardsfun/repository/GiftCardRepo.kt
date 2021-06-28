@@ -11,6 +11,7 @@ import com.example.giftcardsfun.network.RestGiftCardService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.util.ArrayList
 
 object GiftCardRepo {
     private lateinit var db: GiftCardDatabase
@@ -40,7 +41,14 @@ object GiftCardRepo {
     private fun mergeToDb(giftCardServer: GiftCardServer) {
         //todo finish merge method
         giftCardDao.deleteAll()
-        giftCardDao.insertAll(giftCardServer.stores)
+        val giftCards: List<GiftCardEntity> = convert(giftCardServer)
+        giftCardDao.insertAll(giftCards)
+    }
+
+    private fun convert(giftCardServer: GiftCardServer): List<GiftCardEntity> {
+        val giftCards: MutableList<GiftCardEntity> = ArrayList()
+        giftCards.addAll(giftCardServer.stores.map { store -> GiftCardEntity(store) })
+        return giftCards
     }
 
     fun getAllGiftCard(): LiveData<List<GiftCardEntity>> {

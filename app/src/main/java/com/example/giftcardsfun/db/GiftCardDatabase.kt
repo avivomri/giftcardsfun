@@ -6,12 +6,12 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.example.giftcardsfun.db.converter.GiftCardsConverter
+//import com.example.giftcardsfun.db.converter.GiftCardsConverter
 import com.example.giftcardsfun.db.dao.GiftCardDao
 import com.example.giftcardsfun.db.entity.GiftCardEntity
 
 @Database(entities = arrayOf(GiftCardEntity::class), version = 1, exportSchema = false)
-@TypeConverters(GiftCardsConverter::class)
+//@TypeConverters(GiftCardsConverter::class)
 abstract class GiftCardDatabase : RoomDatabase() {
 
     abstract fun giftCardDao(): GiftCardDao
@@ -29,7 +29,7 @@ abstract class GiftCardDatabase : RoomDatabase() {
 
                 INSTANCE = Room
                     .databaseBuilder(context, GiftCardDatabase::class.java, "LOGIN_DATABASE")
-                    .addTypeConverter(GiftCardsConverter::class)
+//                    .addTypeConverter(GiftCardsConverter::class)
                     .fallbackToDestructiveMigration()
                     .build()
 

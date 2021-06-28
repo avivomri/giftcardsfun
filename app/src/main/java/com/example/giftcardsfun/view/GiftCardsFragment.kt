@@ -11,7 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.giftcardsfun.R
 import com.example.giftcardsfun.databinding.MainFragmentBinding
-import com.example.giftcardsfun.db.entity.GiftCardEntity
+import com.example.giftcardsfun.viewmodel.GiftCardFragmentState
 import com.example.giftcardsfun.viewmodel.MainViewModel
 
 
@@ -19,11 +19,6 @@ class GiftCardsFragment : Fragment() {
     private lateinit var viewModel: MainViewModel
     private lateinit var binding: MainFragmentBinding
     private lateinit var adapter: GiftCardsAdapter
-
-    sealed class State {
-        data class Success(val list: List<GiftCardEntity>) : State()
-        object Failure : State()
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.main_fragment, container, false)
@@ -39,9 +34,9 @@ class GiftCardsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.getStateLiveData().observe(viewLifecycleOwner, Observer{ state ->
-            if (state is State.Success) {
+            if (state is GiftCardFragmentState.Success) {
                 adapter.setGiftCards(state.list)
-            } else if (state is State.Failure) {
+            } else if (state is GiftCardFragmentState.Failure) {
                 Toast.makeText(requireActivity(), "Failed to display gift card", Toast.LENGTH_SHORT).show()
             }
         })

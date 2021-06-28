@@ -6,8 +6,10 @@ import androidx.room.PrimaryKey
 import com.example.giftcardsfun.model.GiftCard
 
 @Entity(tableName = "GiftCard")
-data class GiftCardEntity constructor(@ColumnInfo(name = "store_name") private val storeName: String) :
-    GiftCard {
+data class GiftCardEntity constructor(
+    @ColumnInfo(name = "store_name")
+    private val storeName: String
+    ): GiftCard {
 
     @ColumnInfo(name = "name")
     private lateinit var name: String

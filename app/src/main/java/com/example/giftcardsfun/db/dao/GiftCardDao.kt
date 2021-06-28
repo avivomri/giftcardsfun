@@ -6,15 +6,13 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.giftcardsfun.db.entity.GiftCardEntity
+import com.example.giftcardsfun.network.GiftCardServer
 
 @Dao
 interface GiftCardDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(giftCards: List<GiftCardEntity?>?)
-
-    @Query("SELECT * FROM GiftCard WHERE store_name =:storeName")
-    fun getGiftCard(storeName: String): LiveData<GiftCardEntity>
+    fun insertAll(giftCards: List<GiftCardEntity>)
 
     @Query("SELECT * FROM GiftCard")
     fun getAll(): LiveData<List<GiftCardEntity>>
