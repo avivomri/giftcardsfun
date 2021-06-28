@@ -31,8 +31,7 @@ class GiftCardsFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+        viewModel.getMediator().observe(viewLifecycleOwner, Observer {  })
         viewModel.getStateLiveData().observe(viewLifecycleOwner, Observer{ state ->
             if (state is GiftCardFragmentState.Success) {
                 adapter.setGiftCards(state.list)
@@ -44,5 +43,7 @@ class GiftCardsFragment : Fragment() {
         binding.buttonRefresh.setOnClickListener {
             viewModel.refresh()
         }
+
+        super.onViewCreated(view, savedInstanceState)
     }
 }

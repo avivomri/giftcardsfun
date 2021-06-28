@@ -1,6 +1,7 @@
 package com.example.giftcardsfun.repository
 
 import android.content.Context
+import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.giftcardsfun.db.GiftCardDatabase
@@ -25,6 +26,7 @@ object GiftCardRepo {
         db = GiftCardDatabase.getDataseClient(context)
         giftCardDao = db.giftCardDao()
         allGiftCards = giftCardDao.getAll()
+        restService = RestGiftCardService()
 
         if (allGiftCards.value?.size ?: 0 == 0) {
             fetchFromServer()
@@ -38,8 +40,8 @@ object GiftCardRepo {
         }
     }
 
+    @WorkerThread
     private fun mergeToDb(giftCardServer: GiftCardServer) {
-        //todo finish merge method
         giftCardDao.deleteAll()
         val giftCards: List<GiftCardEntity> = convert(giftCardServer)
         giftCardDao.insertAll(giftCards)

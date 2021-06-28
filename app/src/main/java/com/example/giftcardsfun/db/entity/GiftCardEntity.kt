@@ -8,22 +8,16 @@ import com.example.giftcardsfun.model.GiftCard
 @Entity(tableName = "GiftCard")
 data class GiftCardEntity constructor(
     @ColumnInfo(name = "store_name")
-    private val storeName: String
-    ): GiftCard {
-
+    var storeName: String,
     @ColumnInfo(name = "name")
-    private lateinit var name: String
-
-    override fun getName(): String {
-        return name
-    }
-
-    override fun getStoreName(): String {
-        return storeName
-    }
-
+    var cardName: String = "MAX"
+    ) {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    var Id: String? = null
+    var Id: Int = 0
+
+    override fun toString(): String {
+        return "store = $storeName; card = $cardName; id = $Id"
+    }
 }
