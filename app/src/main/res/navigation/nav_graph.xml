@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph"
+    app:startDestination="@id/giftCardsFragment"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <fragment
+        android:id="@+id/giftCardsFragment"
+        android:name="com.example.giftcardsfun.view.GiftCardsFragment"
+        android:label="GiftCardsFragment"
+        tools:layout="@layout/main_fragment"
+        />
+</navigation>
