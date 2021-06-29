@@ -13,7 +13,6 @@ import kotlinx.coroutines.launch
 class MainViewModel constructor(app: Application) : AndroidViewModel(app) {
     private val mediator = MediatorLiveData<GiftCardFragmentState>()
     private val repoLiveData: LiveData<GiftCardFragmentState>
-    private val stateLiveData = MutableLiveData<GiftCardFragmentState>()
 
     //for debug
     private lateinit var allGiftCards: LiveData<List<GiftCardEntity>>
@@ -21,34 +20,21 @@ class MainViewModel constructor(app: Application) : AndroidViewModel(app) {
     init {
         GiftCardRepo.initializeDB(app)
 
-        //works
-//        allGiftCards = GiftCardRepo.getGiftCardModels()
-//        allGiftCards.observeForever { giftCard ->
-//            Log.d("CARD", giftCard.toString())
-//        }
-
         repoLiveData = Transformations.map(GiftCardRepo.getGiftCardModels()) {
             GiftCardFragmentState.Success(it)
             }
 
-        //works
-//        repoLiveData.observeForever { state ->
-//            Log.d("CARD", state.toString())
-//        }
-
-        mediator.addSource(repoLiveData) { stateLiveData.value = it }
+        mediator.addSource(repoLiveData) { mediator.value = it }
     }
 
 
-    fun getStateLiveData(): LiveData<GiftCardFragmentState> = stateLiveData
-
-    fun getMediator(): LiveData<GiftCardFragmentState> = mediator //doesn't work at the moment
+    fun getStateLiveData(): LiveData<GiftCardFragmentState> = mediator
 
     fun getGiftCardModels(): List<GiftCardEntity> = GiftCardRepo.getGiftCardModels().value ?: emptyList()
 
     fun refresh() = try {
         GiftCardRepo.refresh()
     } catch (e: Exception) {
-        stateLiveData.postValue(GiftCardFragmentState.Failure)
+        mediator.postValue(GiftCardFragmentState.Failure)
     }
 }

@@ -6,7 +6,7 @@ class RestGiftCardService {
     suspend fun getStores(): GiftCardServer {
         //Mock
         delay(1500)
-        val stores: List<String> = listOf("zara", "fox")
+        val stores: List<String> = listOf("Zara", "Fox")
         return GiftCardServer(stores, "MAX")
     }
 }
