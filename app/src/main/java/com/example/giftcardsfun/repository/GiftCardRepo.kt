@@ -3,7 +3,6 @@ package com.example.giftcardsfun.repository
 import android.content.Context
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.example.giftcardsfun.db.GiftCardDatabase
 import com.example.giftcardsfun.db.dao.GiftCardDao
 import com.example.giftcardsfun.db.entity.GiftCardEntity
@@ -51,10 +50,6 @@ object GiftCardRepo {
         val giftCards: MutableList<GiftCardEntity> = ArrayList()
         giftCards.addAll(giftCardServer.stores.map { store -> GiftCardEntity(store) })
         return giftCards
-    }
-
-    fun getAllGiftCard(): LiveData<List<GiftCardEntity>> {
-        return allGiftCards
     }
 
     fun insertData(context: Context, giftCardName: String, firstStoreName: String) {

@@ -43,12 +43,13 @@ class GiftCardsFragment : Fragment() {
         //More info: https://blog.usejournal.com/observe-livedata-from-viewmodel-in-fragment-fd7d14f9f5fb
         viewModel.getStateLiveData().removeObservers(viewLifecycleOwner)
         viewModel.getStateLiveData().observe(viewLifecycleOwner, Observer { state ->
-                if (state is GiftCardFragmentState.Success) {
-                    adapter.setGiftCards(state.list)
-                } else if (state is GiftCardFragmentState.Failure) {
-                    Toast.makeText(requireActivity(), "Failed to display gift card", Toast.LENGTH_SHORT).show()
-                }
-            })
+            if (state is GiftCardFragmentState.Success) {
+                adapter.setGiftCards(state.list)
+            } else if (state is GiftCardFragmentState.Failure) {
+                Toast.makeText(requireActivity(), "Failed to display gift card", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        })
 
         binding.buttonRefresh.setOnClickListener {
             viewModel.refresh()
