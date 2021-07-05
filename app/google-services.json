@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "968392897180",
+    "project_id": "gift-card-1ee7a",
+    "storage_bucket": "gift-card-1ee7a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:968392897180:android:e0b8c28a5c5c3481c2b359",
+        "android_client_info": {
+          "package_name": "com.example.giftcardsfun"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "968392897180-7p89k6ggcngqkb7trrsp4pfgk4tnpt7l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD38uyEY64-4d8NrHU6CJ0epFAZb1BUKu8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "968392897180-7p89k6ggcngqkb7trrsp4pfgk4tnpt7l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
